@@ -1,7 +1,7 @@
 build site:
   stage: build 
   script:
-    -docker build -t <imgae-name> .
-    -docker run -p <exposed_port>:333 -d <image-name>
+    -docker build -t grayscale_image.png .
+    -docker run -p 8011:3333 -d grayscale_image.png
   
-80011
+8011
