@@ -1,0 +1,7 @@
+build site:
+  stage: build 
+  script:
+    -docker build -t <imgae-name> .
+    -docker run -p <exposed_port>:333 -d <image-name>
+  
+80011
