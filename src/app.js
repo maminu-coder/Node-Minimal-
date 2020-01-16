@@ -8,10 +8,10 @@ app.use((req, res, next) => {
   if (req.path === '/') {
     res.json({
       status: '201',
-      title: 'Naptime',
       text: 'Simple ReST API with fake data',
-      maintainer: 'Jimmy Keesee',
+      maintainer: 'Jimmy R.  Keesee',
       company: 'ZhongXi',
+      title: 'Naptime.  Get Some ReSTful JSON API.  A more modern fork of JSON placeholder',
       services: [
         '/posts',
         '/comments',
