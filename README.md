@@ -1,182 +1,70 @@
-Run me!  Just do the following
+# Industrial Personal Website with Admin Panel (PHP/MySQLi)
 
-1. git clone https://code.keesee.net/cohack/node-minimal.git naptime
-2. cd naptime
-3. npm install
-4. npm start
-
-
-Running this app is simple.  Clone, enter (cd) into the cloned project, install dependencies and then get started via the npm start command.  You then have a number of routes available to you as a ReSTful JSON API.   The '/' home route gives you some basic information about available routes.  Get, Post, c
-
+A comprehensive, production-ready personal portfolio website and custom CMS admin panel built with clean, secure object-oriented PHP and MySQLi.
 
 ## Features
 
-* No registration
-* Zero-config
-* Basic API
-* "Has many" relationships
-* Filters and nested resources
-* Cross-domain ([CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) and [JSONP](http://en.wikipedia.org/wiki/JSONP))
-* Supports GET, POST, PUT, PATCH, DELETE and OPTIONS verbs
-* HTTP or HTTPS
-* Compatible with React, Angular, Vue, Ember, ...
+### Public Portfolio Frontend
+- Modern Industrial Design - Deep Navy (#1e3a5f), Accent Gold (#f59e0b), Background (#f7f5f0)
+- Responsive Layout using Tailwind CSS
+- Dynamic Content Modules:
+  - Hero Section with animated typography
+  - About & CV section with download links
+  - Academic Publications Gallery (sortable by year/citations)
+  - Interactive Work Experience & Education timelines
+  - Projects Portfolio filterable by tech stack
+  - Blog/Insights with SEO-friendly URL slugs
+  - Video & Lecture grids with YouTube embed support
+- Contact Form with async submission and validation
 
+### Secure Admin Panel & CMS
+- Authentication System with password_hash/password_verify
+- Session Management with regenerated session IDs
+- Analytics Dashboard with summary statistics
+- Complete CRUD Management for all content types
+- Media Upload Handler with MIME validation
 
+## Tech Stack
 
+| Component | Technology |
+|-----------|------------|
+| Backend | PHP 8.x+ (OOP, MVC-style) |
+| Database | MySQL 8.x+ (MySQLi only) |
+| Frontend | HTML5, Tailwind CSS, Vanilla JS |
+| Storage | Local filesystem (S3 ready) |
 
+## Installation
 
-## Guide
-
-You can use this project with any type of project that needs to get JSON data (React, Vue, Angular, Node, Rails, Swift, Android, ...).
-
-Below you'll find examples using [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). You can copy paste them in your browser Console to quickly test and play.
-
-## Get a resource
-
-```js
-fetch('/posts/1')
-  .then(response => response.json())
-  .then(json => console.log(json))
-// Output
-{
-  id: 1,
-  title: '[...]',
-  body: '[...]',
-  userId: 1
-}
+1. Create database and import schema:
+```bash
+mysql -u root -p -e "CREATE DATABASE industrial_portfolio CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p industrial_portfolio < config/database.sql
 ```
 
+2. Edit config/db.php with your database credentials
 
-## List all resources
-
-```js
-fetch('/posts')
-  .then(response => response.json())
-  .then(json => console.log(json))
-
-// Output
-[
-  { id: 1, title: '[...]' /* ... */ },
-  /* ... */
-  { id: 100, title: '[...]' /* ... */ }
-]
+3. Set permissions:
+```bash
+chmod -R 755 assets/uploads
+chmod -R 777 logs
 ```
 
-## Create a resource
+## Default Credentials
 
-```js
-fetch('/posts', {
-    method: 'POST',
-    body: JSON.stringify({
-      title: 'foo',
-      body: 'bar',
-      userId: 1
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-  .then(response => response.json())
-  .then(json => console.log(json))
+- Email: admin@drmaminu.com
+- Password: admin123
 
-// Output
-{
-  id: 101,
-  title: 'foo',
-  body: 'bar',
-  userId: 1
-}
-```
+Change these immediately after first login!
 
-Important: the resource will not be really created on the server but it will be faked as if. In other words, if you try to access a post using 101 as an id, you'll get a 404 error.
+## Security Features
 
-## Update a resource
+- SQL Injection Prevention via prepared statements
+- XSS Mitigation with htmlspecialchars()
+- CSRF Protection with token-based forms
+- Secure Sessions with HTTPOnly cookies
+- Password Hashing with bcrypt
+- File Upload Validation with MIME checking
 
-```js
-fetch('posts/1', {
-    method: 'PUT',
-    body: JSON.stringify({
-      id: 1,
-      title: 'foo',
-      body: 'bar',
-      userId: 1
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-  .then(response => response.json())
-  .then(json => console.log(json))
+## License
 
-// Output
-{
-  id: 1,
-  title: 'foo',
-  body: 'bar',
-  userId: 1
-}
-```
-
-```js
-fetch('posts/1', {
-    method: 'PATCH',
-    body: JSON.stringify({
-      title: 'foo'
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-  .then(response => response.json())
-  .then(json => console.log(json))
-
-// Output
-{
-  id: 1,
-  title: 'foo',
-  body: '[...]',
-  userId: 1
-}
-```
-
-Important: the resource will not be really updated on the server but it will be faked as if. 
-
-## Delete a resource
-
-```js
-fetch('posts/1', {
-  method: 'DELETE'
-})
-```
-
-Important: the resource will not be really deleted on the server but it will be faked as if. 
-
-## Filtering resources
-
-Basic filtering is supported through query parameters.
-
-```js
-// Will return all the posts that belong to the first user
-fetch('/posts?userId=1')
-  .then(response => response.json())
-  .then(json => console.log(json))
-```
-
-## Nested resources
-
-One level of nested route is available.
-
-```js
-// Equivalent to /comments?postId=1
-fetch('/1/comments')
-  .then(response => response.json())
-  .then(json => console.log(json))
-```
-
-Available nested routes:
-
-* /posts/1/comments
-* /albums/1/photos
-* /users/1/albums
-* /users/1/todos
-* /users/1/posts
+MIT License
